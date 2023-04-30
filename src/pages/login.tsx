@@ -4,6 +4,8 @@ import Link from 'next/link'
 import React, { FormEvent, useContext, useState } from 'react'
 import AuthContext from '../contexts/AuthContext'
 import { IUser } from '../hooks/useUser'
+import { Button } from '@components/Button/Button'
+import { useRouter } from 'next/router'
 
 type UserBodyResponse = {
   token: string,
@@ -19,13 +21,14 @@ type UserResponse = {
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { setUser } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
+  const router = useRouter()
 
   const loginService = async () => {
     console.log(JSON.stringify({ email, password }));
 
     try {
-      const response = await fetch(`${process.env.NEXT_API}/users/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -50,8 +53,9 @@ const Login = () => {
 
       const result: UserResponse = await loginService()
       const { body } = result
-      setUser({id: body.user.id, username: body.user.username, email: body.user.email, authToken: body.token})
+      login({id: body.user.id, username: body.user.username, email: body.user.email, authToken: body.token})
       console.log('result', result);
+      router.replace('/dashboard')
 
     } catch (error) {
 
@@ -88,7 +92,8 @@ const Login = () => {
                 />
               </div>
 
-              <button type='submit' className='mt-3 px-4 py-[9px] text-sm border bg-black border-black rounded-lg text-white uppercase font-bold hover:bg-white hover:text-black transition-all ease-out'>Crear una cuenta</button>
+              <Link href='/register'><span className='mt-4 mb-2 font-bold text-gray-900 block'>¿No tienes cuenta? Crea una cuenta ahora</span></Link>
+              <Button type='submit' variant='primary' text='Iniciar sesión'/>
             </form>
           </div>
 

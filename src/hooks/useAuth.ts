@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IUser, StorageKey, useUser } from './useUser';
 import { useLocalStorage } from './useLocalStorage';
 
