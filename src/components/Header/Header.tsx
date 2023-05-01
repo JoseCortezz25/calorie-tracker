@@ -24,13 +24,13 @@ const LoginLogout = (): JSX.Element => {
   const { currentUser, logout } = useContext(AuthContext);
   const user = currentUser();
 
-  if (!user.authToken) {
-    return <button onClick={logout} className="px-4 py-[9px] font-bold mr-3 border-2 hover:border-black rounded-lg transition-all ease-out">Sign In</button>
-  }
+  // if (!user.authToken) {
+  //   return <button className="px-4 py-[9px] font-bold mr-3 border-2 hover:border-black rounded-lg transition-all ease-out">Sign In</button>
+  // }
 
   return (
     <>
-      <button className="px-4 py-[9px] font-bold mr-3 border-2 hover:border-black rounded-lg transition-all ease-out">Sign Out</button>
+      <button onClick={logout} className="px-4 py-[9px] font-bold mr-3 border-2 hover:border-black rounded-lg transition-all ease-out">Sign Out</button>
     </>
   )
 }

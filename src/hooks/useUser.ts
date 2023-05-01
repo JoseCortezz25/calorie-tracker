@@ -15,6 +15,7 @@ export const useUser = () => {
   const [user, setUser] = useLocalStorage(StorageKey.USER, {});
 
   const addUser = (user: IUser) => {
+    console.log("🚀 ~ file: useUser.ts:19 ~ addUser ~ JSON.stringify(user):", JSON.stringify(user))
     setUser(JSON.stringify(user));
   };
 

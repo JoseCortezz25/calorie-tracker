@@ -11,6 +11,10 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
   console.log("🚀 ~ file: PrivateRoute.tsx:8 ~ PrivateRoute ~ user:", user)
   const privateRoutes: string[] = ['/register', '/dashboard']
   useEffect(() => {
+    
+    if (user === null || user === '') {
+      router.replace('/')
+    }
     if (!user.authToken && privateRoutes.includes(router.pathname)) {
       router.replace('/')
     }

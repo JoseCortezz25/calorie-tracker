@@ -24,7 +24,18 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
   const logout = () => removeUser()
 
-  const currentUser = () => getUser()
+  const currentUser = (): IUser | null  => {
+    const user: any = getUser();
+    if (user === null || user === '') {
+      return null
+    }
+
+    const currentUser = typeof getUser() === 'string' 
+      ? JSON.parse(user)
+      : getUser()  
+    
+    return currentUser
+  }
 
   return <AuthContext.Provider value={{ login, logout, currentUser } as IAuthContext}>{children}</AuthContext.Provider>
 }
